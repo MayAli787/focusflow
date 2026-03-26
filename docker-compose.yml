@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: focusflow-db
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: focusflow
+      POSTGRES_USER: focusflow
+      POSTGRES_PASSWORD: focusflow
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  cache:
+    image: redis:7
+    container_name: focusflow-cache
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+
+volumes:
+  pgdata:
