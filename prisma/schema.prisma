@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -17,12 +17,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -58,7 +58,7 @@ model User {
   image           String?
   healthPoints    Int      @default(0)
   onboardingDone  Boolean  @default(false)
-  defaultConfig   Json?
+  defaultConfig   String?
 
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -72,12 +72,6 @@ model User {
   pointTransactions PointTransaction[]
 }
 
-enum SessionStatus {
-  active
-  completed
-  abandoned
-}
-
 model StudySession {
   id                  String        @id @default(cuid())
   userId              String
@@ -85,8 +79,9 @@ model StudySession {
   plannedDurationMin  Int
   sessionsPlanned     Int
   sessionsCompleted   Int           @default(0)
-  status              SessionStatus @default(active)
+  status              String        @default("active")
   startedAt           DateTime      @default(now())
+  createdAt           DateTime      @default(now())
   endedAt             DateTime?
 
   user                User          @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -95,18 +90,12 @@ model StudySession {
   @@index([userId, status])
 }
 
-enum CognitiveState {
-  focused
-  tired
-  stressed
-}
-
 model StudyCycle {
   id               String          @id @default(cuid())
   sessionId        String
   cycleNumber      Int
   durationMin      Int
-  cognitiveState   CognitiveState?
+  cognitiveState   String?
   missionId        String?
   missionCompleted Boolean         @default(false)
   startedAt        DateTime        @default(now())
@@ -118,19 +107,11 @@ model StudyCycle {
   @@index([sessionId])
 }
 
-enum MissionCategory {
-  hydration
-  eye_rest
-  stretch
-  breathing
-  movement
-}
-
 model HealthMission {
   id          String          @id @default(cuid())
-  category    MissionCategory
+  category    String
   title       String
-  description String          @db.Text
+  description String
   videoUrl    String?
   points      Int             @default(10)
 
@@ -156,7 +137,7 @@ model VideoWatch {
 model Badge {
   id             String   @id @default(cuid())
   name           String
-  description    String?  @db.Text
+  description    String?
   icon           String
   conditionType  String
   conditionValue Int
@@ -180,13 +161,13 @@ model UserBadge {
 model WeeklyReport {
   id                String   @id @default(cuid())
   userId            String
-  weekStart         DateTime @db.Date
-  weekEnd           DateTime @db.Date
-  totalHours        Decimal  @db.Decimal(5, 2)
+  weekStart         DateTime
+  weekEnd           DateTime
+  totalHours        Float
   missionsCompleted Int      @default(0)
   missionsSkipped   Int      @default(0)
-  reportData        Json?
-  insights          Json?
+  reportData        String?
+  insights          String?
   generatedAt       DateTime @default(now())
 
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)

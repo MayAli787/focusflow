@@ -24,12 +24,12 @@ const config: Config = {
           500: '#A96DD9',
           700: '#7C3DAF',
         },
-        // Rosa / Rosa Choque
+        // Azul Royal (Substituindo o Rosa globalmente)
         pink: {
-          100: '#FFD6E7',
-          300: '#FF9DC5',
-          500: '#FF69B4',
-          700: '#C9356A',
+          100: '#E1E8FF',
+          300: '#7B96FF',
+          500: '#4169E1',
+          700: '#2B4491',
         },
         // Neutros
         neutral: {

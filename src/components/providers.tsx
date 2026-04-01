@@ -2,25 +2,27 @@
 
 import { ThemeProvider } from 'next-themes';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Toaster } from '@/components/ui/toast';
-import React from 'react';
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 5 * 60 * 1000, // 5 min
-      retry: 1,
-    },
-  },
-});
+import { SessionProvider } from 'next-auth/react';
+import { useState } from 'react';
 
 export function Providers({ children }: { children: React.ReactNode }) {
+  // Query Client inicializado lazily para evitar side effects no SSG
+  const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 1000 * 60 * 5, // 5 min de cache nas requisições client-side
+        refetchOnWindowFocus: false,
+      },
+    },
+  }));
+
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-        {children}
-        <Toaster />
-      </ThemeProvider>
+      <SessionProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
+      </SessionProvider>
     </QueryClientProvider>
   );
 }

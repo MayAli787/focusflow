@@ -19,9 +19,9 @@ export default auth((req) => {
   }
 
   // Redirect logged-in users from login page to dashboard
-  if (req.nextUrl.pathname === '/login' && isLoggedIn) {
+  /* if (req.nextUrl.pathname === '/login' && isLoggedIn) {
     return NextResponse.redirect(new URL('/app/dashboard', req.nextUrl.origin));
-  }
+  } */
 
   return NextResponse.next();
 });

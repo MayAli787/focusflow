@@ -14,8 +14,10 @@ import {
   Heart,
   Menu,
   X,
+  LogOut,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { signOut } from 'next-auth/react';
 
 interface NavItem {
   href: string;
@@ -132,6 +134,17 @@ export function AppLayout({
             );
           })}
         </nav>
+        
+        {/* Logout section */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-lilac-100 dark:border-dark-border">
+          <button
+            onClick={() => signOut({ callbackUrl: '/login' })}
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium font-inter text-neutral-500 hover:bg-pink-50 hover:text-pink-600 transition-colors"
+          >
+            <LogOut size={18} />
+            Sair da conta
+          </button>
+        </div>
       </aside>
 
       {/* Overlay for mobile sidebar */}

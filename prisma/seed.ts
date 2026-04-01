@@ -1,4 +1,4 @@
-import { PrismaClient, MissionCategory } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -11,21 +11,21 @@ async function main() {
   const missions = [
     // Hidratação (3)
     {
-      category: MissionCategory.hydration,
+      category: 'hydration',
       title: 'Hora de hidratar!',
       description:
         'Beba um copo cheio de água agora. A hidratação é essencial para manter o cérebro funcionando no máximo. Levante-se, vá até a cozinha e encha seu copo.',
       points: 10,
     },
     {
-      category: MissionCategory.hydration,
+      category: 'hydration',
       title: 'Encha sua garrafinha',
       description:
         'Verifique sua garrafinha de água. Se estiver vazia, vá até a cozinha e encha-a. Se ainda tiver água, beba pelo menos metade agora.',
       points: 10,
     },
     {
-      category: MissionCategory.hydration,
+      category: 'hydration',
       title: 'Chá ou água saborizada',
       description:
         'Que tal preparar um chá ou adicionar uma rodela de limão na sua água? Aproveite a pausa para se hidratar de forma especial.',
@@ -34,14 +34,14 @@ async function main() {
 
     // Descanso Ocular (2)
     {
-      category: MissionCategory.eye_rest,
+      category: 'eye_rest',
       title: 'Regra 20-20-20',
       description:
         'Olhe para um objeto a pelo menos 6 metros de distância (cerca de 20 pés) por 20 segundos. Isso relaxa os músculos dos olhos e reduz a fadiga ocular.',
       points: 10,
     },
     {
-      category: MissionCategory.eye_rest,
+      category: 'eye_rest',
       title: 'Descanso com olhos fechados',
       description:
         'Feche os olhos suavemente por 30 segundos. Coloque as palmas das mãos sobre os olhos para bloquear a luz. Respire fundo e relaxe.',
@@ -50,7 +50,7 @@ async function main() {
 
     // Alongamento (3 com vídeo)
     {
-      category: MissionCategory.stretch,
+      category: 'stretch',
       title: 'Alongamento de pescoço',
       description:
         'Incline a cabeça para a direita, segure por 15 segundos. Repita para a esquerda. Depois, gire suavemente a cabeça em círculos. Isso alivia a tensão cervical.',
@@ -58,7 +58,7 @@ async function main() {
       points: 10,
     },
     {
-      category: MissionCategory.stretch,
+      category: 'stretch',
       title: 'Relaxamento de pulso e mãos',
       description:
         'Estenda o braço com a palma para cima. Com a outra mão, puxe os dedos para baixo suavemente por 15 segundos. Repita no outro braço. Previne LER.',
@@ -66,7 +66,7 @@ async function main() {
       points: 10,
     },
     {
-      category: MissionCategory.stretch,
+      category: 'stretch',
       title: 'Alongamento de coluna',
       description:
         'Sentado, gire o tronco para a direita com a mão na cadeira, segure por 15 segundos. Repita para a esquerda. Depois, estique os braços para cima com as mãos entrelaçadas.',
@@ -76,14 +76,14 @@ async function main() {
 
     // Respiração (2)
     {
-      category: MissionCategory.breathing,
+      category: 'breathing',
       title: 'Respiração 4-7-8',
       description:
         'Inspire pelo nariz contando até 4. Segure a respiração contando até 7. Expire pela boca contando até 8. Repita 3 vezes. Essa técnica reduz a ansiedade.',
       points: 10,
     },
     {
-      category: MissionCategory.breathing,
+      category: 'breathing',
       title: 'Box Breathing (Respiração quadrada)',
       description:
         'Inspire contando até 4. Segure contando até 4. Expire contando até 4. Segure contando até 4. Repita 4 vezes. Usada por atletas para foco.',
@@ -92,7 +92,7 @@ async function main() {
 
     // Movimento (2)
     {
-      category: MissionCategory.movement,
+      category: 'movement',
       title: 'Levante e caminhe',
       description:
         'Levante-se da cadeira e caminhe por 1 minuto. Vá até a janela, dê uma volta no cômodo, ou simplesmente fique de pé e balance os braços.',
@@ -100,7 +100,7 @@ async function main() {
       points: 10,
     },
     {
-      category: MissionCategory.movement,
+      category: 'movement',
       title: '10 agachamentos rápidos',
       description:
         'Levante-se e faça 10 agachamentos no lugar. Mantenha as costas retas e os joelhos alinhados com os pés. Isso ativa a circulação e dá energia.',

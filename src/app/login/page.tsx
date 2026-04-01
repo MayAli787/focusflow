@@ -45,6 +45,30 @@ export default function LoginPage() {
           </button>
         </form>
 
+        <div className="my-4 flex items-center gap-3">
+          <div className="h-[1px] flex-1 bg-neutral-100 dark:bg-dark-border"></div>
+          <span className="text-xs text-neutral-400 font-inter">ou</span>
+          <div className="h-[1px] flex-1 bg-neutral-100 dark:bg-dark-border"></div>
+        </div>
+
+        <form
+          action={async () => {
+            'use server';
+            await signIn('credentials', {
+              email: 'test@example.com',
+              password: 'password',
+              redirectTo: '/app/dashboard',
+            });
+          }}
+        >
+          <button
+            type="submit"
+            className="w-full rounded-lg bg-lilac-500 px-6 py-3 text-base font-inter font-medium text-white shadow-sm transition-all duration-200 hover:bg-lilac-600 active:scale-[0.98] dark:bg-lilac-700 dark:hover:bg-lilac-600"
+          >
+            Acesso Experimental (Mock)
+          </button>
+        </form>
+
         {/* Rodapé */}
         <p className="mt-6 text-center text-xs text-neutral-500 font-inter dark:text-neutral-100">
           Ao entrar, você concorda com nossa{' '}
